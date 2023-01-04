@@ -1,0 +1,121 @@
+
+button {
+    background-color: orangered;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    font-weight: 500;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: all 2s ease-in-out;
+
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #111;
+    line-height: 1.15;
+}
+
+#wrapper {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.headline {
+    text-align: center;
+    margin: 40px 0px;
+}
+
+    h3 {
+        background-color: wheat;
+        font-size: 30px;
+        color: #111;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        border: 1px solid bisque;
+        display: inline-block;
+        font-weight: 600;
+    }
+
+ul.products {
+    list-style: none;
+    display: flex ;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+ul.products li {
+    flex-basis: 25%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+ul.products li img {
+    width: 100%;
+    height: 100%;
+}
+
+ul.products li .product-top {
+    position: relative;
+    overflow: hidden;
+}
+
+ul.products li:hover .product-top .product-thumb img {
+    filter: opacity(80%);
+}
+
+ul.products li .product-top .product-thumb {
+    display: block;
+    overflow: hidden;
+    height: 150px;
+}
+
+ul.products li .product-top .product-thumb img {
+    display: block;
+}
+
+ul.products li .products-info {
+    padding: 20px;
+}
+
+ul.products li .products-info a {
+    display: block;
+    text-decoration: none;
+}
+
+ul.products li .product-info a.product-cat {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: white;
+    padding: 3px;
+}
+
+ul.products li .product-info a.product-name {
+    color: black;
+    padding: 3px
+}
+
+ul.products li .product-info .product-price {
+    color: orangered;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    font-size: 25px;
+    padding-top: 25px;
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/main.css">
+
+
+
+</head>
+<body style=" background-image:url(https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/nguyenhuong/amthucnhatbantheomua/am-thuc-nhat-ban-theo-mua-va-sushi-la-mot-dai-dien-2.jpg) ">
+
+<div class="container">
+
+    <div class="mb-3 row">
+        <label for="inputUserName" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+            <input type="text" oninput="validate()" class="form-control" id="inputUserName">
+            <p class="text-danger" id="failUserName"></p>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" oninput="validate()" class="form-control" id="inputEmail">
+            <p class="text-danger" id="failEmail"></p>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" oninput="validate()" class="form-control" id="inputPassword">
+            <p class="text-danger" id="failPassword"></p>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputRePassword" class="col-sm-2 col-form-label">Repassword</label>
+        <div class="col-sm-10">
+            <input type="password" oninput="validate()" class="form-control" id="inputRePassword">
+            <p class="text-danger" id="failRePassword"></p>
+        </div>
+    </div>
+    <div class="text-center"><button type="button" onclick="submitData()" class="btn btn-info submitData">Submit</button></div>
+
+</div>
+<script src="../JS/register.js"></script>
+<script>
+    let userNameInput = document.querySelector("#inputUserName");
+    let emailInput = document.querySelector("#inputEmail");
+    let passwordInput = document.querySelector("#inputPassword");
+    let rePasswordInput = document.querySelector("#inputRePassword");
+    let submit = document.querySelector(".submitData")
+    let ischeck;
+    let user ;
+    let arr = JSON.parse(localStorage.getItem("listUser"));
+    if(arr==null){
+        arr = [];
+    }
+    console.log(arr)
+    function validate() {
+        let check = true;
+        let username = userNameInput.value;
+        let email = emailInput.value;
+        let password = passwordInput.value;
+        let rePassword = rePasswordInput.value;
+        const EMAIL_PATTERN =/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+        if (username.trim()==''){
+            // console.log("username --" +username)
+            document.querySelector("#failUserName").innerText = "Username cannot be empty !";
+            check = false;
+        }else if(username.length <6){
+            document.querySelector("#failUserName").innerText = "Your Username must have at least 6 characters !";
+            check = false;
+        }else if (checkUsernameExist(username)){
+            document.querySelector("#failUserName").innerText = "The username already exits, please select another name!";
+            check = false;
+        }else {
+            document.querySelector("#failUserName").innerText = "";
+        }
+        if (email.trim() == ''){
+            document.querySelector("#failEmail").innerText = "Email cannot be empty !";
+            check = false;
+        }else if(!EMAIL_PATTERN.test(email)){
+            document.querySelector("#failEmail").innerText = "Please enter a correct email format  !";
+            check = false;
+        }else if (checkEmailExist(email)){
+            document.querySelector("#failEmail").innerText = "Email already exists !";
+            check=false;
+        }else {
+            document.querySelector("#failEmail").innerText = "";
+        }
+        if (password.trim()==''){
+            // console.log('null')
+            document.querySelector("#failPassword").innerText = "Password cannot be empty !";
+            check = false;
+        }else if(password.length <8){
+            document.querySelector("#failPassword").innerText = "Your Password must have at least 8 characters !";
+            check = false;
+        }else {
+            document.querySelector("#failPassword").innerText = "";
+        }
+        if (rePassword !== password){
+            document.querySelector("#failRePassword").innerText = "Your passwords do not match";
+            check = false;
+        }
+        else {
+            document.querySelector("#failRePassword").innerText ="";
+        }
+        // console.log("check ---"+check)
+        if (check){
+            ischeck = true;
+            user = new User(username,email,password)
+        }else {
+            ischeck = false;
+        }
+    }
+    function submitData() {
+        if(ischeck){
+            arr.push(user);
+            localStorage.setItem('listUser',JSON.stringify(arr));
+            location.href= "admin.html";
+        }
+    }
+    function checkUsernameExist(userNameCheck){
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].username===userNameCheck){
+                return true
+                break;
+            }
+        }
+        return  false;
+    }
+    function checkEmailExist(email) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].email == email){
+                return true;
+            }
+        }
+        return false;
+    }
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>

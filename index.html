@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: . VnAristote;
+        }
+        #carouselExampleDark {
+            border: 1px solid wheat;
+            box-shadow: 1px 1px 1px 1px white;
+            width: 80%;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        #carouselExampleDark .carousel-inner {
+            height: 100%;
+        }
+
+        #carouselExampleDark .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #carouselExampleDark > button {
+            background-color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="CSS/index.css">
+</head>
+
+<body style="font-size: 1.4rem">
+<nav class="navbar navbar-expand-lg navbar-light mb-5" style="background-color: orangered">
+    <div class="container-fluid">
+        <button class="navbar-toggler" style="width: 60px" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+                <li class="nav-item mx-3">
+                    <a class="nav-link active  text-light" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link  text-light" href="Admin/food.html">Japanese Foods</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input id="valueSearch" oninput="searchName()" class="form-control me-2" type="search" placeholder="Search"
+                       aria-label="Search">
+                <button  class="btn btn-outline-success text-light" style="width: 150px"
+                        type="submit">Search</button>
+            </form>
+            <div class="d-flex">
+                <li class="nav-item ms-3" style="list-style-type: none">
+                    <div><a style="position: relative" class="nav-link active  text-light" aria-current="page" href="Admin/cart.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                             class="bi bi-cart-check" viewBox="0 0 16 16">
+                            <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                        <div id="countPro"
+                             style="position: absolute;width: 20px; height: 20px ;background-color: white; font-size: 16px ; color: red ;text-align: center; border-radius: 50%;top: 0;right: 0">
+                            2
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mx-3" style="list-style-type: none">
+                    <a class="nav-link active  text-light" aria-current="page" href="Admin/login.html">Login</a>
+                <li class="nav-item mx-3" style="list-style-type: none">
+                    <a class="nav-link active  text-light" aria-current="page" href="Admin/register.html">Register</a>
+                </li>
+            </div>
+
+
+        </div>
+    </div>
+</nav>
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    </div>
+    <div class="carousel-inner">
+        <div data-bs-interval="2000" class="carousel-item active">
+            <img src="https://duhocvietnhat.edu.vn/wp-content/uploads/mon-an-noi-tieng-nhat-ban.jpg"
+                 class="d-block w-100" alt="ảnh 1">
+        </div>
+        <div data-bs-interval="2000" class="carousel-item">
+            <img src="https://duhocvietnhat.edu.vn/wp-content/uploads/cach-an-sushi.jpg" class="d-block w-100"
+                 alt="ảnh 2">
+        </div>
+        <div data-bs-interval="2000" class="carousel-item">
+            <img src="https://duhocvietnhat.edu.vn/wp-content/uploads/tempura.jpg" class="d-block w-100" alt="ảnh3">
+        </div>
+        <div data-bs-interval="2000" class="carousel-item">
+            <img src="https://duhocvietnhat.edu.vn/wp-content/uploads/sushi-khac-sashimi.jpg" class="d-block w-100"
+                 alt="ảnh4">
+        </div>
+        <div data-bs-interval="2000" class="carousel-item">
+            <img src="https://duhocvietnhat.edu.vn/wp-content/uploads/mon-an-noi-tieng-nhat-ban-1.jpg"
+                 class="d-block w-100" alt="anh5">
+        </div>
+        <div data-bs-interval="2000" class="carousel-item">
+            <img src="https://satovietnhat.com.vn/Upload/images/banh-mochi-1.jpg"
+                 class="d-block w-100" alt="anh6">
+        </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div id="wrapper">
+    <div class="headline">
+        <h3> Danh sách các món ăn bán chạy </h3>
+    </div>
+    <ul class="products" id = "products">
+
+
+    </ul>
+</div>
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Background image -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+
+</script>
+<script>
+    let listCart = JSON.parse(localStorage.getItem("list_cart"));
+    if (listCart==null){
+        listCart=[];
+    }
+
+
+    function logOut() {
+        localStorage.removeItem('user')
+        location.reload();
+    }
+    let list = JSON.parse( localStorage.getItem('listFood'));
+    if(list==null){
+        list = [];
+    }
+    function showPost() {
+        let str = '';
+        for (let i = 0; i < list.length; i++) {
+            str += `<li>
+            <div class="product-item">
+                <div class="product-top">
+                    <a href="Admin/product-detail.html" class="product-thumb">
+                        <img src="${list[i].image}"
+                             alt="Hình ảnh các món ăn ngon Nhật Bản">
+                    </a>
+                </div>
+
+                <div class="product-info">
+                    <a href="Admin/cart.html" class="product-name">${list[i].title}</a>
+                    <div><span  class="product-price">${list[i].price}<sup>Đ</sup></span> <button> Thêm vào giỏ hàng</button></div>
+                </div>
+            </div>
+        </li>`
+        }
+        document.getElementById('products').innerHTML = str;
+        document.getElementById('countPro').innerText = listCart.length
+
+    } showPost()
+    const btn =document.querySelectorAll("#wrapper button"); /// listnode
+    btn.forEach(function (button) {
+        button.addEventListener("click",function (event) {
+            let btnItem= event.target;
+            let product = btnItem.parentElement.parentElement.parentElement;
+            let productImg = product.querySelector("img").src;
+            let productName = product.querySelector(".product-name").innerText;
+            let productPrice = +product.querySelector(".product-price").innerText.replace('Đ','');
+
+            addCart(productImg,productName,productPrice);
+
+        })
+    })
+
+    function addCart(productImg,productName,productPrice) {
+
+        let check=false
+        for (let i = 0; i < listCart.length; i++) {
+            if(listCart[i].title== productName){
+                check=true
+                listCart[i].soLuong++;
+                break;
+            }
+        }
+        if (check==false){
+            listCart.push({
+                img: productImg,
+                title: productName,
+                price: productPrice,
+                soLuong: 1
+            })
+        }
+        localStorage.setItem('list_cart',JSON.stringify(listCart))
+        location.reload()
+    }
+
+</script>
+</body>
+</html>

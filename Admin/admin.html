@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        table {
+            border-style: solid;
+
+        }
+        body {
+            background: center;
+            background-color: lightyellow;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar bg-body-tertiary bg-info ">
+        <div class="container-fluid ">
+            <a class="navbar-brand text-light"> List posts </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmodal">
+                Add+
+            </button>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" oninput="searchFood()" id="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+    </nav>
+    <div class="content">
+        <table class="table text-center">
+            <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th colspan="3">Action</th>
+            </tr>
+            </thead>
+            <tbody id="list-food">
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!--modal create-->
+<div class="modal fade" id="createmodal" tabindex="-1" aria-labelledby="createmodalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createmodalLabel">Add Food</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="titleNew" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="titleNew" placeholder="Enter title">
+                </div>
+                <div class="mb-3">
+                    <label for="imageNew" class="form-label">Image</label>
+                    <input type="text" class="form-control" id="imageNew" placeholder="Enter link">
+                </div>
+                <div class="mb-3">
+                    <label for="contentNew" class="form-label">Content</label>
+                    <textarea class="form-control" id="contentNew" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="priceNew" class="form-label">Price</label>
+                    <input class="form-control" id="priceNew" placeholder="Enter Price">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createFood()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!--Detail modal-->
+<div class="modal fade" id="detailFood" tabindex="-1" aria-labelledby="detailFoodLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="main-detail">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Edit modal-->
+<div class="modal fade" id="editFood" tabindex="-1" aria-labelledby="editFoodLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="main-edit">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="save()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--DeleteModal-->
+<div class="modal fade" id="deleteFood" tabindex="-1" aria-labelledby="deleteFoodLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                Are you sure you want to delete this food?
+                <input type="hidden" id="deleteId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-success" onclick="deleteId()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Scrollable modal -->
+<script>
+   let posts = JSON.parse( localStorage.getItem('listFood'));
+   if(posts==null){
+       posts = [];
+   }
+    function show(list) {
+        let str = '';
+        for (let i = 0; i < list.length; i++) {
+            str += `<tr>
+                    <td>${list[i].id}</td>
+                    <td>${list[i].title}</td>
+                    <td>${(+list[i].price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</td>
+                    <td>
+                       <button type="button" onclick="detailFood(${list[i].id})" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detailFood">
+        Detail
+    </button>
+                    <td>
+                        <button type="button" onclick="editfood(${list[i].id})" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editFood">
+        Edit
+    </button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="deleteFood(${list[i].id})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteFood">
+        Delete
+    </button>
+                    </td>
+                </tr>`
+        }
+        document.getElementById('list-food').innerHTML = str;
+    }
+    show(posts)
+
+    function detailFood(id) {
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].id === id) {
+                document.getElementById("main-detail").innerHTML = `<div class="row row-cols-1 g-4">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title"> ${posts[i].id}. ${posts[i].title}</h5>
+                    <img src="${posts[i].image}" class="card-img-top"
+                         alt="Hình ảnh bánh Mochi Nhật Bản">
+                    <p class="card-text">${posts[i].content}</div>
+            </div>
+
+        </div>
+    </div>`
+                break;
+            }
+        }
+    }
+    function editfood(id) {
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].id == id) {
+                document.getElementById("main-edit").innerHTML = `<div class="mb-3">
+
+  <label for="idfood" class="form-label">ID</label>
+  <input type="text" class="form-control" id="idfood" value="${posts[i].id}" readonly>
+</div>
+<div class="mb-3">
+  <label for="titleFood" class="form-label">Title</label>
+  <input type="text" class="form-control" id="titleFood" placeholder="Enter title" value="${posts[i].title}">
+</div>
+<div class="mb-3">
+  <label for="imageFood" class="form-label">Image</label>
+  <input type="text" class="form-control" id="imageFood" placeholder="Enter link" value="${posts[i].image}">
+</div>
+<div class="mb-3">
+  <label for="contentFood" class="form-label">Content</label>
+  <textarea class="form-control" id="contentFood" rows="4">${posts[i].content}</textarea>
+</div>
+<div class="mb-3">
+                    <label for="priceFood" class="form-label">Price</label>
+                    <input class="form-control" id="priceFood" placeholder="Enter Price" value="${posts[i].price}">
+                </div>`
+                break;
+            }
+        }
+
+    }
+    function save() {
+        let id = document.getElementById('idfood').value;
+        let title = document.getElementById('titleFood').value;
+        let image = document.getElementById('imageFood').value;
+        let content = document.getElementById('contentFood').value;
+        let price = document.getElementById('priceFood').value;
+        for (let i = 0; i < posts.length; i++) {
+            console.log(id)
+            if(posts[i].id == id){
+                posts[i].title =title;
+                posts[i].image =image;
+                posts[i].content =content;
+                posts[i].price = price;
+                localStorage.setItem('listFood',JSON.stringify(posts))
+                break;
+            }
+        }
+        show(posts)
+    }
+    function deleteFood(id) {
+        document.getElementById("deleteId").value = id;
+    }
+    function deleteId() {
+        let deleteid = document.getElementById('deleteId').value;
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].id == deleteid){
+                posts.splice(i,1)
+            }
+        }
+        show(posts);
+    }
+    function searchFood() {
+        let strSearch = document.getElementById('search').value.toLowerCase()
+        let listSearch = [];
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].title.toLowerCase().includes(strSearch)){
+                listSearch.push(posts[i])
+            }
+        }
+        show(listSearch);
+
+    }
+    function createFood() {
+        let titleNew = document.getElementById('titleNew').value;
+        let imageNew = document.getElementById('imageNew').value;
+        let contentNew = document.getElementById('contentNew').value;
+        let priceNew = document.getElementById('priceNew').value;
+        let idNew;
+        if (posts.length===0){
+            idNew=1
+        }else {
+            idNew = posts[posts.length - 1].id + 1;
+        }
+        posts.push({
+            id: idNew,
+            title: titleNew,
+            image : imageNew,
+            content: contentNew,
+            price : priceNew
+
+        })
+        localStorage.setItem("listFood",JSON.stringify(posts))
+        show(posts)
+    }
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+
+</script>
+</body>
+</html>
